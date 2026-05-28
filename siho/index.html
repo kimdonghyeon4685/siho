@@ -299,21 +299,20 @@
   </nav>
 
   <main>
+    <!-- 시안 뷰어 (About ~ Story + Before&After 공용) -->
     <div class="viewer" id="viewer-section">
       <img id="page-image" src="assets/01.about.png" alt="시오의원 시안">
     </div>
 
+    <!-- 이미지 갤러리 -->
     <div class="gallery" id="gallery-section">
       <div class="gallery-grid" id="gallery-grid"></div>
-    </div>
-
-    <div class="gallery" id="beforeafter-section">
-      <div class="gallery-grid" id="beforeafter-grid"></div>
     </div>
   </main>
 
   <div class="page-indicator" id="indicator">1 / 6</div>
 
+  <!-- 라이트박스 -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lb-close">&times;</button>
     <button class="lightbox-nav lightbox-prev" id="lb-prev">&#8249;</button>
@@ -323,6 +322,7 @@
   </div>
 
   <script>
+    // 시안 페이지 (Before&After 포함)
     const pages = [
       'assets/01.about.png',
       'assets/02.signature.png',
@@ -332,32 +332,25 @@
       'assets/06.story.png'
     ];
 
+    const baImage = 'assets/07_bf.jpg';
+
     const img = document.getElementById('page-image');
     const indicator = document.getElementById('indicator');
     const links = document.querySelectorAll('.menu a');
     const viewerSection = document.getElementById('viewer-section');
     const gallerySection = document.getElementById('gallery-section');
-    const beforeafterSection = document.getElementById('beforeafter-section');
 
-    let currentMode = 'viewer';
-    let activeLightboxImages = [];
+    let currentMode = 'viewer'; // 'viewer' | 'gallery' | 'beforeafter'
 
     function setMode(mode) {
       currentMode = mode;
-      if (mode === 'viewer') {
+      if (mode === 'viewer' || mode === 'beforeafter') {
         viewerSection.style.display = '';
         gallerySection.classList.remove('show');
-        beforeafterSection.classList.remove('show');
-        indicator.style.display = '';
+        indicator.style.display = mode === 'viewer' ? '' : 'none';
       } else if (mode === 'gallery') {
         viewerSection.style.display = 'none';
         gallerySection.classList.add('show');
-        beforeafterSection.classList.remove('show');
-        indicator.style.display = 'none';
-      } else if (mode === 'beforeafter') {
-        viewerSection.style.display = 'none';
-        gallerySection.classList.remove('show');
-        beforeafterSection.classList.add('show');
         indicator.style.display = 'none';
       }
     }
@@ -377,6 +370,16 @@
       }, 150);
     }
 
+    function showBeforeAfter() {
+      setMode('beforeafter');
+      img.classList.add('fade');
+
+      setTimeout(() => {
+        img.src = baImage;
+        img.onload = () => img.classList.remove('fade');
+      }, 150);
+    }
+
     links.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -388,13 +391,14 @@
         if (page === 'gallery') {
           setMode('gallery');
         } else if (page === 'beforeafter') {
-          setMode('beforeafter');
+          showBeforeAfter();
         } else {
           showPage(parseInt(page) - 1);
         }
       });
     });
 
+    // 키보드 방향키 (viewer 모드에서만)
     document.addEventListener('keydown', (e) => {
       if (currentMode !== 'viewer') return;
 
@@ -469,28 +473,12 @@
       grid.appendChild(item);
     });
 
-    // ── Before&After ──
-    const baImages = [
-      'assets/07_bf.jpg'
-    ];
-
-    const baGrid = document.getElementById('beforeafter-grid');
-    baImages.forEach((src, i) => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.innerHTML = `<img src="${src}" alt="Before&After ${i + 1}" loading="lazy">`;
-      item.addEventListener('click', () => {
-        activeLightboxImages = baImages;
-        openLightbox(i);
-      });
-      baGrid.appendChild(item);
-    });
-
     // ── 라이트박스 ──
     const lightbox = document.getElementById('lightbox');
     const lbImage = document.getElementById('lb-image');
     const lbCounter = document.getElementById('lb-counter');
     let lbIndex = 0;
+    let activeLightboxImages = galleryImages;
 
     function openLightbox(index) {
       lbIndex = index;
