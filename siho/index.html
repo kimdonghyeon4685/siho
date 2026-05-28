@@ -13,12 +13,9 @@
       color: #333;
     }
 
-    /* 상단 네비게이션 */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
@@ -88,7 +85,6 @@
       font-weight: 600;
     }
 
-    /* 메인 콘텐츠 */
     main {
       padding-top: 64px;
       min-height: 100vh;
@@ -96,7 +92,6 @@
       justify-content: center;
     }
 
-    /* 시안 뷰어 */
     .viewer {
       width: 100%;
       max-width: 1400px;
@@ -112,11 +107,8 @@
       transition: opacity 0.3s ease;
     }
 
-    .viewer img.fade {
-      opacity: 0;
-    }
+    .viewer img.fade { opacity: 0; }
 
-    /* 하단 페이지 표시 */
     .page-indicator {
       text-align: center;
       padding: 20px;
@@ -124,7 +116,6 @@
       font-size: 13px;
     }
 
-    /* 갤러리 */
     .gallery {
       width: 100%;
       max-width: 1400px;
@@ -132,9 +123,7 @@
       display: none;
     }
 
-    .gallery.show {
-      display: block;
-    }
+    .gallery.show { display: block; }
 
     .gallery-grid {
       columns: 3;
@@ -147,7 +136,6 @@
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
-      position: relative;
     }
 
     .gallery-item img {
@@ -161,7 +149,7 @@
       filter: brightness(0.92);
     }
 
-    /* ── Before & After 섹션 ── */
+    /* Before & After */
     .beforeafter {
       width: 100%;
       max-width: 1400px;
@@ -169,9 +157,7 @@
       display: none;
     }
 
-    .beforeafter.show {
-      display: block;
-    }
+    .beforeafter.show { display: block; }
 
     .ba-grid {
       display: grid;
@@ -193,10 +179,7 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     }
 
-    .ba-card img {
-      width: 100%;
-      display: block;
-    }
+    .ba-card img { width: 100%; display: block; }
 
     .ba-card-label {
       padding: 14px 18px;
@@ -214,15 +197,8 @@
       letter-spacing: 0.5px;
     }
 
-    .ba-tag.before {
-      background: #f0ebe5;
-      color: #8a7060;
-    }
-
-    .ba-tag.after {
-      background: #5a4a3a;
-      color: #fff;
-    }
+    .ba-tag.before { background: #f0ebe5; color: #8a7060; }
+    .ba-tag.after  { background: #5a4a3a; color: #fff; }
 
     .ba-card-title {
       font-size: 13px;
@@ -234,10 +210,7 @@
     .lightbox {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       z-index: 200;
       background: rgba(0,0,0,0.9);
       justify-content: center;
@@ -245,9 +218,7 @@
       cursor: zoom-out;
     }
 
-    .lightbox.open {
-      display: flex;
-    }
+    .lightbox.open { display: flex; }
 
     .lightbox img {
       max-width: 90vw;
@@ -259,8 +230,7 @@
 
     .lightbox-close {
       position: absolute;
-      top: 24px;
-      right: 32px;
+      top: 24px; right: 32px;
       color: #fff;
       font-size: 32px;
       cursor: pointer;
@@ -271,9 +241,7 @@
       font-family: inherit;
     }
 
-    .lightbox-close:hover {
-      opacity: 1;
-    }
+    .lightbox-close:hover { opacity: 1; }
 
     .lightbox-nav {
       position: absolute;
@@ -290,10 +258,7 @@
       user-select: none;
     }
 
-    .lightbox-nav:hover {
-      opacity: 1;
-    }
-
+    .lightbox-nav:hover { opacity: 1; }
     .lightbox-prev { left: 16px; }
     .lightbox-next { right: 16px; }
 
@@ -306,14 +271,9 @@
       font-size: 14px;
     }
 
-    /* 반응형 */
     @media (max-width: 1024px) {
-      .gallery-grid {
-        columns: 2;
-      }
-      .ba-grid {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      }
+      .gallery-grid { columns: 2; }
+      .ba-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
     }
 
     @media (max-width: 768px) {
@@ -323,46 +283,15 @@
         padding: 12px 16px;
         gap: 8px;
       }
-
-      .menu {
-        gap: 2px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .menu li a {
-        padding: 8px 12px;
-        font-size: 13px;
-      }
-
-      .menu-divider {
-        display: none;
-      }
-
-      main {
-        padding-top: 110px;
-      }
-
-      .viewer {
-        padding: 16px 12px;
-      }
-
-      .gallery {
-        padding: 16px 12px 40px;
-      }
-
-      .gallery-grid {
-        columns: 1;
-        column-gap: 12px;
-      }
-
-      .beforeafter {
-        padding: 20px 12px 40px;
-      }
-
-      .ba-grid {
-        grid-template-columns: 1fr;
-      }
+      .menu { gap: 2px; flex-wrap: wrap; justify-content: center; }
+      .menu li a { padding: 8px 12px; font-size: 13px; }
+      .menu-divider { display: none; }
+      main { padding-top: 110px; }
+      .viewer { padding: 16px 12px; }
+      .gallery { padding: 16px 12px 40px; }
+      .gallery-grid { columns: 1; }
+      .beforeafter { padding: 20px 12px 40px; }
+      .ba-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -386,17 +315,14 @@
   </nav>
 
   <main>
-    <!-- 시안 뷰어 -->
     <div class="viewer" id="viewer-section">
       <img id="page-image" src="assets/01.about.png" alt="시오의원 시안">
     </div>
 
-    <!-- 이미지 갤러리 -->
     <div class="gallery" id="gallery-section">
       <div class="gallery-grid" id="gallery-grid"></div>
     </div>
 
-    <!-- Before & After -->
     <div class="beforeafter" id="beforeafter-section">
       <div class="ba-grid" id="ba-grid"></div>
     </div>
@@ -404,7 +330,6 @@
 
   <div class="page-indicator" id="indicator">1 / 6</div>
 
-  <!-- 라이트박스 -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lb-close">&times;</button>
     <button class="lightbox-nav lightbox-prev" id="lb-prev">&#8249;</button>
@@ -414,7 +339,6 @@
   </div>
 
   <script>
-    // ── 시안 페이지 ──
     const pages = [
       'assets/01.about.png',
       'assets/02.signature.png',
@@ -424,18 +348,18 @@
       'assets/06.story.png'
     ];
 
-    const img = document.getElementById('page-image');
-    const indicator = document.getElementById('indicator');
-    const links = document.querySelectorAll('.menu a');
-    const viewerSection = document.getElementById('viewer-section');
-    const gallerySection = document.getElementById('gallery-section');
+    const img             = document.getElementById('page-image');
+    const indicator       = document.getElementById('indicator');
+    const links           = document.querySelectorAll('.menu a');
+    const viewerSection   = document.getElementById('viewer-section');
+    const gallerySection  = document.getElementById('gallery-section');
     const beforeafterSection = document.getElementById('beforeafter-section');
 
-    let currentMode = 'viewer'; // 'viewer' | 'gallery' | 'beforeafter'
+    let currentMode = 'viewer';
 
     function setMode(mode) {
       currentMode = mode;
-      viewerSection.style.display   = mode === 'viewer'      ? '' : 'none';
+      viewerSection.style.display = mode === 'viewer' ? '' : 'none';
       gallerySection.classList.toggle('show', mode === 'gallery');
       beforeafterSection.classList.toggle('show', mode === 'beforeafter');
       indicator.style.display = mode === 'viewer' ? '' : 'none';
@@ -445,29 +369,30 @@
       setMode('viewer');
       img.classList.add('fade');
 
+      // active 클래스 즉시 업데이트
+      links.forEach(l => l.classList.remove('active'));
+      const target = document.querySelector(`[data-page="${index + 1}"]`);
+      if (target) target.classList.add('active');
+
       setTimeout(() => {
         img.src = pages[index];
         indicator.textContent = (index + 1) + ' / ' + pages.length;
-
-        links.forEach(link => link.classList.remove('active'));
-        document.querySelector(`[data-page="${index + 1}"]`).classList.add('active');
-
         img.onload = () => img.classList.remove('fade');
       }, 150);
     }
 
-    // 메뉴 클릭
     links.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const page = link.dataset.page;
 
-        links.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-
         if (page === 'gallery') {
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
           setMode('gallery');
         } else if (page === 'beforeafter') {
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
           setMode('beforeafter');
         } else {
           showPage(parseInt(page) - 1);
@@ -475,22 +400,17 @@
       });
     });
 
-    // 키보드 방향키 (시안 모드에서만)
+    // 키보드 방향키
     document.addEventListener('keydown', (e) => {
       if (currentMode !== 'viewer') return;
-
       const current = document.querySelector('.menu a.active');
       if (!current || !current.dataset.page || isNaN(current.dataset.page)) return;
       const currentIndex = parseInt(current.dataset.page) - 1;
-
-      if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
-        showPage(currentIndex + 1);
-      } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        showPage(currentIndex - 1);
-      }
+      if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) showPage(currentIndex + 1);
+      if (e.key === 'ArrowLeft'  && currentIndex > 0)                 showPage(currentIndex - 1);
     });
 
-    // ── 갤러리 ──
+    // 갤러리
     const galleryImages = [
       'assets/01.about.png',
       'assets/02.signature.png',
@@ -538,10 +458,80 @@
       'assets/sub/new01_ (10).jpg'
     ];
 
-    // 갤러리 그리드 생성
     const grid = document.getElementById('gallery-grid');
     galleryImages.forEach((src, i) => {
       const item = document.createElement('div');
       item.className = 'gallery-item';
       item.innerHTML = `<img src="${src}" alt="Image ${i + 1}" loading="lazy">`;
-      item.addEventListener('click', () => openLightbox(i
+      item.addEventListener('click', () => openLightbox(i, galleryImages));
+      grid.appendChild(item);
+    });
+
+    // Before & After
+    const baItems = [
+      { src: 'assets/sub/07_bf.jpg', label: 'Before & After' }
+    ];
+
+    const baGrid = document.getElementById('ba-grid');
+    const baLightboxImages = [];
+
+    baItems.forEach((item, i) => {
+      baLightboxImages.push(item.src);
+      const card = document.createElement('div');
+      card.className = 'ba-card';
+      card.innerHTML = `
+        <img src="${item.src}" alt="${item.label}" loading="lazy">
+        <div class="ba-card-label">
+          <span class="ba-tag before">BEFORE</span>
+          <span class="ba-tag after">AFTER</span>
+          <span class="ba-card-title">${item.label}</span>
+        </div>
+      `;
+      card.addEventListener('click', () => openLightbox(i, baLightboxImages));
+      baGrid.appendChild(card);
+    });
+
+    // 라이트박스 (공용)
+    const lightbox  = document.getElementById('lightbox');
+    const lbImage   = document.getElementById('lb-image');
+    const lbCounter = document.getElementById('lb-counter');
+    let lbIndex = 0;
+    let lbImages = [];
+
+    function openLightbox(index, images) {
+      lbImages = images;
+      lbIndex  = index;
+      lbImage.src = lbImages[index];
+      lbCounter.textContent = (index + 1) + ' / ' + lbImages.length;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+    document.getElementById('lb-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (lbIndex > 0) openLightbox(lbIndex - 1, lbImages);
+    });
+
+    document.getElementById('lb-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (lbIndex < lbImages.length - 1) openLightbox(lbIndex + 1, lbImages);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft'  && lbIndex > 0)                  openLightbox(lbIndex - 1, lbImages);
+      if (e.key === 'ArrowRight' && lbIndex < lbImages.length - 1) openLightbox(lbIndex + 1, lbImages);
+    });
+  </script>
+
+</body>
+</html>
