@@ -161,6 +161,75 @@
       filter: brightness(0.92);
     }
 
+    /* ── Before & After 섹션 ── */
+    .beforeafter {
+      width: 100%;
+      max-width: 1400px;
+      padding: 40px 24px 60px;
+      display: none;
+    }
+
+    .beforeafter.show {
+      display: block;
+    }
+
+    .ba-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .ba-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .ba-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .ba-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .ba-card-label {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ba-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .ba-tag.before {
+      background: #f0ebe5;
+      color: #8a7060;
+    }
+
+    .ba-tag.after {
+      background: #5a4a3a;
+      color: #fff;
+    }
+
+    .ba-card-title {
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
     /* 라이트박스 */
     .lightbox {
       display: none;
@@ -242,6 +311,9 @@
       .gallery-grid {
         columns: 2;
       }
+      .ba-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
     }
 
     @media (max-width: 768px) {
@@ -283,6 +355,14 @@
         columns: 1;
         column-gap: 12px;
       }
+
+      .beforeafter {
+        padding: 20px 12px 40px;
+      }
+
+      .ba-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -300,6 +380,7 @@
         <li><a href="#" data-page="6">Story</a></li>
         <li class="menu-divider"></li>
         <li><a href="#" data-page="gallery">Image</a></li>
+        <li><a href="#" data-page="beforeafter">Before&After</a></li>
       </ul>
     </div>
   </nav>
@@ -313,6 +394,11 @@
     <!-- 이미지 갤러리 -->
     <div class="gallery" id="gallery-section">
       <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+    <!-- Before & After -->
+    <div class="beforeafter" id="beforeafter-section">
+      <div class="ba-grid" id="ba-grid"></div>
     </div>
   </main>
 
@@ -343,20 +429,16 @@
     const links = document.querySelectorAll('.menu a');
     const viewerSection = document.getElementById('viewer-section');
     const gallerySection = document.getElementById('gallery-section');
+    const beforeafterSection = document.getElementById('beforeafter-section');
 
-    let currentMode = 'viewer'; // 'viewer' or 'gallery'
+    let currentMode = 'viewer'; // 'viewer' | 'gallery' | 'beforeafter'
 
     function setMode(mode) {
       currentMode = mode;
-      if (mode === 'viewer') {
-        viewerSection.style.display = '';
-        gallerySection.classList.remove('show');
-        indicator.style.display = '';
-      } else {
-        viewerSection.style.display = 'none';
-        gallerySection.classList.add('show');
-        indicator.style.display = 'none';
-      }
+      viewerSection.style.display   = mode === 'viewer'      ? '' : 'none';
+      gallerySection.classList.toggle('show', mode === 'gallery');
+      beforeafterSection.classList.toggle('show', mode === 'beforeafter');
+      indicator.style.display = mode === 'viewer' ? '' : 'none';
     }
 
     function showPage(index) {
@@ -380,10 +462,13 @@
         e.preventDefault();
         const page = link.dataset.page;
 
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
         if (page === 'gallery') {
-          links.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
           setMode('gallery');
+        } else if (page === 'beforeafter') {
+          setMode('beforeafter');
         } else {
           showPage(parseInt(page) - 1);
         }
@@ -392,9 +477,10 @@
 
     // 키보드 방향키 (시안 모드에서만)
     document.addEventListener('keydown', (e) => {
-      if (currentMode === 'gallery') return;
+      if (currentMode !== 'viewer') return;
 
       const current = document.querySelector('.menu a.active');
+      if (!current || !current.dataset.page || isNaN(current.dataset.page)) return;
       const currentIndex = parseInt(current.dataset.page) - 1;
 
       if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
@@ -458,52 +544,4 @@
       const item = document.createElement('div');
       item.className = 'gallery-item';
       item.innerHTML = `<img src="${src}" alt="Image ${i + 1}" loading="lazy">`;
-      item.addEventListener('click', () => openLightbox(i));
-      grid.appendChild(item);
-    });
-
-    // ── 라이트박스 ──
-    const lightbox = document.getElementById('lightbox');
-    const lbImage = document.getElementById('lb-image');
-    const lbCounter = document.getElementById('lb-counter');
-    let lbIndex = 0;
-
-    function openLightbox(index) {
-      lbIndex = index;
-      lbImage.src = galleryImages[index];
-      lbCounter.textContent = (index + 1) + ' / ' + galleryImages.length;
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('lb-close').addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    document.getElementById('lb-prev').addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (lbIndex > 0) openLightbox(lbIndex - 1);
-    });
-
-    document.getElementById('lb-next').addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (lbIndex < galleryImages.length - 1) openLightbox(lbIndex + 1);
-    });
-
-    // 라이트박스 키보드
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft' && lbIndex > 0) openLightbox(lbIndex - 1);
-      if (e.key === 'ArrowRight' && lbIndex < galleryImages.length - 1) openLightbox(lbIndex + 1);
-    });
-  </script>
-
-</body>
-</html>
+      item.addEventListener('click', () => openLightbox(i
